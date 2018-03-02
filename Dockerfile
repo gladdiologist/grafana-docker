@@ -1,11 +1,9 @@
 FROM debian:jessie
 
-ARG DOWNLOAD_URL="https://s3-us-west-2.amazonaws.com/grafana-releases/master/grafana_latest_amd64.deb"
-
 RUN apt-get update && \
     apt-get -y --no-install-recommends install libfontconfig curl ca-certificates && \
     apt-get clean && \
-    curl ${DOWNLOAD_URL} > /tmp/grafana.deb && \
+    curl https://github.com/gladdiologist/grafana/releases/download/v5.0.1-pre1/grafana_5.0.1-1519939510pre1_amd64.deb > /tmp/grafana.deb && \
     dpkg -i /tmp/grafana.deb && \
     rm /tmp/grafana.deb && \
     curl -L https://github.com/tianon/gosu/releases/download/1.10/gosu-amd64 > /usr/sbin/gosu && \
