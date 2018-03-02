@@ -2,5 +2,5 @@
 
 echo "Building latest for master"
 docker build \
-	--tag "gladdiologist/grafana:master" \
+	--tag "digigladd/grafana:master" \
 	--no-cache=true .
