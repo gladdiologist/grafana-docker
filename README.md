@@ -1,15 +1,14 @@
-# Grafana Docker image
+# Grafana for MOOVIS Docker image
 
-[![CircleCI](https://circleci.com/gh/grafana/grafana-docker.svg?style=svg)](https://circleci.com/gh/grafana/grafana-docker)
-
-This project builds a Docker image with the latest master build of Grafana.
+This project builds a Docker image with the latest build of Grafana for MOOVIS.
+This project is a fork of grafana/grafana-docker.
 
 ## Running your Grafana container
 
 Start your container binding the external port `3000`.
 
 ```
-docker run -d --name=grafana -p 3000:3000 grafana/grafana
+docker run -d --name=grafana -p 3000:3000 gladdiologist/grafana
 ```
 
 Try it out, default admin user is admin/admin.
@@ -33,7 +32,7 @@ docker run \
   --name=grafana \
   -e "GF_SERVER_ROOT_URL=http://grafana.server.name" \
   -e "GF_SECURITY_ADMIN_PASSWORD=secret" \
-  grafana/grafana
+  gladdiologist/grafana
 ```
 
 You can use your own grafana.ini file by using environment variable `GF_PATHS_CONFIG`.
@@ -52,7 +51,7 @@ docker run \
   -p 3000:3000 \
   --name=grafana \
   --volumes-from grafana-storage \
-  grafana/grafana
+  gladdiologist/grafana
 ```
 
 ## Installing plugins for Grafana 3
@@ -65,18 +64,7 @@ docker run \
   -p 3000:3000 \
   --name=grafana \
   -e "GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource" \
-  grafana/grafana
-```
-
-## Running specific version of Grafana
-
-```
-# specify right tag, e.g. 2.6.0 - see Docker Hub for available tags
-docker run \
-  -d \
-  -p 3000:3000 \
-  --name grafana \
-  grafana/grafana:2.6.0
+  gladdiologist/grafana
 ```
 
 ## Configuring AWS credentials for CloudWatch support
@@ -90,7 +78,7 @@ docker run \
   -e "GF_AWS_default_ACCESS_KEY_ID=YOUR_ACCESS_KEY" \
   -e "GF_AWS_default_SECRET_ACCESS_KEY=YOUR_SECRET_KEY" \
   -e "GF_AWS_default_REGION=us-east-1" \
-  grafana/grafana
+  gladdiologist/grafana
 ```
 
 You may also specify multiple profiles to `GF_AWS_PROFILES` (e.g.
@@ -101,17 +89,3 @@ Supported variables:
 - `GF_AWS_${profile}_ACCESS_KEY_ID`: AWS access key ID (required).
 - `GF_AWS_${profile}_SECRET_ACCESS_KEY`: AWS secret access  key (required).
 - `GF_AWS_${profile}_REGION`: AWS region (optional).
-
-## Changelog
-
-### v4.2.0
-* Plugins are now installed into ${GF_PATHS_PLUGINS}
-* Building the container now requires a full url to the deb package instead of just version
-* Fixes bug caused by installing multiple plugins
-
-### v4.0.0-beta2
-* Plugins dir (`/var/lib/grafana/plugins`) is no longer a separate volume
-
-### v3.1.1
-* Make it possible to install specific plugin version https://github.com/grafana/grafana-docker/issues/59#issuecomment-260584026
-
